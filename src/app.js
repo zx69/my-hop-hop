@@ -12,6 +12,7 @@ import getPlane from './components/getPlane';
 import Cube from './components/Cube';
 import initResizeListener from './components/initResizeListener';
 import { getObjWrapBox } from './utils';
+import initGameOverText from './components/initGameOverTexte';
 
 var scene = new THREE.Scene();
 
@@ -117,6 +118,7 @@ let personHopTick = () => {
 
     console.warn(isIntersected);
     if(isIntersected){
+      // 跳到下一个方块成功的回调
       person.position.y = hopMinHeight;
 
       nextCubeAlongX = Math.random() >= 0.5;
@@ -131,13 +133,21 @@ let personHopTick = () => {
       cameraNextPosX = camera.position.x + nextCubeGap;
       cameraNextPosZ = camera.position.z - nextCubeGap;
 
-
-
     }else{
+      // 跳到下一个方块失败的回调
       // person.rotation.z = -Math.PI/2;
       isFallingDown = true; // 正在跌倒中
       window.removeEventListener('mousedown', onMouseDown);
       window.removeEventListener('mouseup', onMouseUp);
+
+      setTimeout(() => {
+        let text = initGameOverText(scene);
+        console.log(person.position);
+        // textMesh.rotation.y = -Math.PI/4;
+        text.position.set(person.position.x, person.position.y + 20, person.position.z);
+      }, 500)
+
+
 
     }
   }

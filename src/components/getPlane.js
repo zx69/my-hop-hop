@@ -7,7 +7,7 @@ function getPlane(scene) {
     // shininess: 1,
     // emissive: 0xeeeeee,
     transparent: true,
-    opacity: 0.5,
+    opacity: 0,
   });
   let geometry = new THREE.PlaneGeometry(1000,1000);
   let mesh = new THREE.Mesh(geometry, material);
